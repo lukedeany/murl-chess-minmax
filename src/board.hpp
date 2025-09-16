@@ -32,8 +32,8 @@ class Chessboard
         // Function overload to move a piece from start to end by struct position
         void movePiece(Position start_position, Position end_position)
         {
-            int start_location = this->getLocationFromPosition(start_position);
-            int end_location = this->getLocationFromPosition(end_position);
+            int start_location { this->getLocationFromPosition(start_position) };
+            int end_location { this->getLocationFromPosition(end_position) };
 
             this->movePiece(start_location, end_location);
         }
@@ -54,8 +54,8 @@ class Chessboard
         int getLocationFromPosition(Position position)
         {
             // Offset for allowing Position to start at (1,1)
-            int offset = this->sizeY + 1; 
-            int location = (position.y * this->sizeY) + this->sizeX;
+            int offset { this->sizeY + 1 }; 
+            int location { (position.y * this->sizeY) + this->sizeX };
 
             return location - offset;
         }
@@ -65,12 +65,12 @@ class Chessboard
         {
 
             // calculate offset to start at (1,1)
-            int offset = this->sizeY  + 1;
-            int new_location = location + offset;
+            int offset { this->sizeY  + 1 };
+            int new_location { location + offset };
 
             // Now calculate x and y
-            int position_y = new_location / this->sizeY;
-            int position_x = (new_location % this->sizeY) + 1;
+            int position_y { new_location / this->sizeY };
+            int position_x { (new_location % this->sizeY) + 1 };
 
             return Position{position_x, position_y};
         }
@@ -78,8 +78,8 @@ class Chessboard
     // Chessboard is stored as an array of size (x * y)
     private:
         // Store size of board for calculations
-        const int sizeX{SizeX};
-        const int sizeY{SizeY};
+        const int sizeX {SizeX};
+        const int sizeY {SizeY};
 
         // Board is a list of integers with each element representing a space on the board
         // Starts from bottom left and moves right, until it hits SizeX, and then moves up one Y
