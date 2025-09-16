@@ -49,6 +49,24 @@ class Chessboard
         {
             return this->board[this->getLocationFromPosition(position)];
         }
+        
+        // Set a piece at a specific location
+        void setPieceAtLocation(int location, int piece_id)
+        {
+            piece_map[piece_id] = location;
+
+            board[location] = piece_id;
+        }
+
+        // Set a piece based on a position
+        void setPieceAtPosition(Position position, int piece_id)
+        {
+            // Turn our position into location
+            int location { this->getLocationFromPosition(position) };
+
+            this->setPieceAtLocation(location, piece_id);
+        }
+
 
         // Takes in a position and returns the raw location in the array
         int getLocationFromPosition(Position position)

@@ -5,7 +5,13 @@ int main()
 {
     Chessboard<8,8> board{};
 
-    std::cout << board.getPieceAtPosition(Position{3,3}) << std::endl;
+    for (int i {0}; i < 8; i++)
+    {
+        board.setPieceAtPosition( Position {i, 2}, WhitePawn );
+        board.setPieceAtPosition( Position {i, 7}, BlackPawn );
+    }
+
+    std::cout << board.getPieceAtPosition(Position{1,2}) << std::endl;
 
     return 0;
 }
