@@ -1,11 +1,6 @@
 #include <array>
 #include <unordered_map>
-
-struct Position
-{
-    int x;
-    int y;
-};
+#include "position.hpp"
 
 template <int SizeX, int SizeY>
 class Chessboard

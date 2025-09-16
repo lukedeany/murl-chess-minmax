@@ -1,4 +1,6 @@
 #include "board.hpp"
+#include "position.hpp"
+#include "piece.hpp"
 #include <iostream>
 
 int main()

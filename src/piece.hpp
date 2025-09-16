@@ -1,3 +1,7 @@
+#pragma once
+#include "position.hpp"
+#include <vector>
+
 enum Pieces
 {
     Empty,
@@ -13,4 +17,39 @@ enum Pieces
     BlackRook,
     BlackQueen,
     BlackKing
+};
+
+// Takes a board and returns
+class Piece {
+    public:
+        virtual std::vector<Position> getPossibleMoves(Position start_position) = 0;
+
+    private:
+        int id {-1};
+
+};
+
+class Pawn : Piece {
+    public:
+        std::vector<Position> getPossibleMoves(Position start_position) override;
+};
+
+class Rook : Piece {
+    
+};
+
+class Knight : Piece {
+    
+};
+
+class Bishop : Piece {
+    
+};
+
+class Queen : Piece {
+    
+};
+
+class King : Piece {
+    
 };
