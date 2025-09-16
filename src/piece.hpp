@@ -38,8 +38,9 @@ class Rook : Piece {
     
 };
 
-class Knight : Piece {
-    
+class Knight : Piece { 
+    public:
+        std::vector<Position> getPossibleMoves(Position start_position) override;
 };
 
 class Bishop : Piece {
