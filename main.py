@@ -3,14 +3,18 @@ import chess;
 board = chess.Board();
 
 
-# get legal moves to begin loop
-legal_moves = board.legal_moves;
-for move in legal_moves:
-    board.push(move);
+def minmax(depth):
+    if depth == 0:
+        print(board);
+        return # analysis
 
-    print (board);
+    legal_moves = board.legal_moves;
 
-    board.pop();
+    # Go down a path of being a legal move
+    for move in legal_moves:
+        # Do, then undo, a legal move
+        board.push(move);
+        minmax(depth - 1);
+        board.pop();
 
-
-print(board.outcome());
+minmax(2);
