@@ -27,18 +27,19 @@ def minmax(depth):
     best_move = None;
     best_eval = 0;
     if board.turn == chess.WHITE:
-        best_eval = -50
+        best_eval = -100;
     else:
-        best_eval = 50;
+        best_eval = 100;
 
     # Go down a path of being a legal move
     for move in legal_moves:
         # Do, then undo, a legal move
         board.push(move);
         evaluation = minmax(depth - 1);
+        board.pop();
 
+        print(best_eval, evaluation[0]);
         if (board.turn == chess.WHITE):
-            print(best_eval, evaluation[0]);
             if (best_eval < evaluation[0]):
                 best_eval = evaluation[0];
                 best_move = move;
@@ -46,16 +47,14 @@ def minmax(depth):
             if (best_eval > evaluation[0]):
                 best_eval = evaluation[0];
                 best_move = move;
-
-        board.pop();
-    
+        
         #print(best_eval, best_move);
 
     # Now get the best possible move
     return (best_eval, best_move);
 
 
-result = minmax(2);
+result = minmax(3);
 
 print(result[0])
 print(result[1])
