@@ -1,5 +1,5 @@
 #pragma once
-#include "position.hpp"
+#include "Position.hpp"
 #include <vector>
 
 enum Pieces

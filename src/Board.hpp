@@ -1,6 +1,6 @@
 #include <array>
 #include <unordered_map>
-#include "position.hpp"
+#include "Position.hpp"
 
 template <int SizeX, int SizeY>
 class Chessboard

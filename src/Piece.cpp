@@ -1,4 +1,4 @@
-#include "piece.hpp"
+#include "Piece.hpp"
 
 std::vector<Position> Pawn::getPossibleMoves(Position start_position)
 {
