@@ -2,6 +2,7 @@
 #include "Position.hpp"
 #include <vector>
 #include <map>
+#include <algorithm>
 
 enum Pieces
 {
@@ -69,12 +70,42 @@ class Knight : Piece {
         std::vector<Position> getPossibleMoves(Position start_position) override;
 };
 
+template <int SizeX, int SizeY>
 class Bishop : Piece {
-    
+    public:
+        std::vector<Position> getPossibleMoves(Position start_position) override 
+        {
+            // hold our moves
+            std::vector<Position> possible_moves {};
+
+            // Now bishop can move any variation of x,y as long as |x| = |y|
+            for (int i = 0; i < SizeY; i++)
+            {
+                possible_moves.push_back(start_position + Position { i, i } );
+                possible_moves.push_back(start_position + Position { -i, i } );
+                possible_moves.push_back(start_position + Position { i, -i } );
+                possible_moves.push_back(start_position + Position { -i, -i } );
+            }
+
+            std::vector<Position> filtered_moves {};
+
+            std::copy_if(possible_moves.begin(), possible_moves.end(), 
+                    std::back_inserter(filtered_moves), 
+                    [](Position pos) { return pos.x >= 0 && pos.x < SizeX && pos.y >= 0 && pos.y < SizeY; } );
+
+            return filtered_moves;
+        }
 };
 
 class Queen : Piece {
-    
+    public:
+        std::vector<Position> getPossibleMoves(Position start_position) override 
+        {
+            // hold our moves
+            std::vector<Position> possible_moves {};
+
+            return possible_moves;
+        }
 };
 
 class King : Piece {
