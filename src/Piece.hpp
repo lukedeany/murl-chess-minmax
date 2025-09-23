@@ -40,8 +40,28 @@ class Pawn : Piece {
         std::vector<Position> getPossibleMoves(Position start_position) override;
 };
 
+template <int SizeX, int SizeY>
 class Rook : Piece {
-    
+    public:
+        std::vector<Position> getPossibleMoves(Position start_position) override 
+        {
+            // hold our moves
+            std::vector<Position> possible_moves {};
+
+            // Let rook move to any position
+            for (int i = 0; i < SizeY; i++)
+            {
+                // ensure we dont have same position as nothing
+                if (i != start_position.y) possible_moves.push_back(Position { start_position.x, i } );
+            }
+
+            for (int i = 0; i < SizeX; i++)
+            {
+                if (i != start_position.x) possible_moves.push_back(Position { i, start_position.y } );
+            }
+
+            return possible_moves;
+        }
 };
 
 class Knight : Piece { 
