@@ -31,9 +31,22 @@ enum Pieces
 template <int SizeX, int SizeY>
 class Piece {
     public:
-        virtual std::vector<Position> getPossibleMoves(Position start_position);
-        Piece(int id);
-        ~Piece();
+        virtual std::vector<Position> getPossibleMoves(Position start_position) = 0;
+
+        Piece(int &id)
+        {
+            this->id = id;
+        }
+
+        ~Piece() 
+        {
+
+        }
+
+        int getID()
+        {
+            return id;
+        }
 
         static Piece* getPieceFromId(int id);
 
@@ -63,7 +76,7 @@ class Piece {
 };
 
 template <int SizeX, int SizeY>
-class Pawn : Piece<SizeX, SizeY> {
+class Pawn : public Piece<SizeX, SizeY> {
     public:
         std::vector<Position> getPossibleMoves(Position start_position) override
         {
@@ -80,10 +93,14 @@ class Pawn : Piece<SizeX, SizeY> {
             // ensure correct constraints
             return this->filterMoves(possible_moves, start_position);
         }
+
+        Pawn (int& id): Piece<SizeX, SizeY>(id) {
+            
+        }
 };
 
 template <int SizeX, int SizeY>
-class Rook : Piece<SizeX, SizeY> {
+class Rook : public Piece<SizeX, SizeY> {
     public:
         std::vector<Position> getPossibleMoves(Position start_position) override 
         {
@@ -107,7 +124,7 @@ class Rook : Piece<SizeX, SizeY> {
 };
 
 template <int SizeX, int SizeY>
-class Knight : Piece<SizeX, SizeY> { 
+class Knight : public Piece<SizeX, SizeY> { 
     public:
         std::vector<Position> getPossibleMoves(Position start_position) override
         {
@@ -128,7 +145,7 @@ class Knight : Piece<SizeX, SizeY> {
 };
 
 template <int SizeX, int SizeY>
-class Bishop : Piece<SizeX, SizeY> {
+class Bishop : public Piece<SizeX, SizeY> {
     public:
         std::vector<Position> getPossibleMoves(Position start_position) override 
         {
@@ -149,7 +166,7 @@ class Bishop : Piece<SizeX, SizeY> {
 };
 
 template <int SizeX, int SizeY>
-class Queen : Piece<SizeX, SizeY> {
+class Queen : public Piece<SizeX, SizeY> {
     public:
         std::vector<Position> getPossibleMoves(Position start_position) override 
         {
@@ -182,7 +199,7 @@ class Queen : Piece<SizeX, SizeY> {
 };
 
 template <int SizeX, int SizeY>
-class King : Piece<SizeX, SizeY> {
+class King : public Piece<SizeX, SizeY> {
     public:
         std::vector<Position> getPossibleMoves(Position start_position) override
         {
