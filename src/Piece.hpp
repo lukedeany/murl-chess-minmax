@@ -5,9 +5,9 @@
 #include <algorithm>
 
 template <typename PieceType>
-concept ConcretePiece = requires PieceType
+concept ConcretePiece = requires (PieceType piece)
 {
-    { piece.getPossibleMoves( Position {0,0} ) }
+    { piece.getPossibleMoves( Position {0,0} ) };
 };
 
 enum Pieces
