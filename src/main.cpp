@@ -18,7 +18,7 @@ int main()
         board.setPieceAtPosition( Position {i, 2}, white_piece.get()->getID());
         board.setPieceAtPosition( Position {i, 7}, black_piece.get()->getID());
     }
-
+    
     std::cout << board.getPieceAtPosition(Position{3,2}) << std::endl;
 
     return 0;
