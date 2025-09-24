@@ -123,6 +123,11 @@ class Rook : public Piece<SizeX, SizeY> {
 
             return this->filterMoves( possible_moves, start_position );
         }
+
+        // constructor that calls parent constructor
+        Rook (int& id, PieceColor color): Piece<SizeX, SizeY>(id, color) {
+            
+        }
 };
 
 template <int SizeX, int SizeY>
@@ -144,6 +149,11 @@ class Knight : public Piece<SizeX, SizeY> {
 
             return this->filterMoves( possible_moves, start_position );
         }
+
+        // constructor that calls parent constructor
+        Knight (int& id, PieceColor color): Piece<SizeX, SizeY>(id, color) {
+            
+        }
 };
 
 template <int SizeX, int SizeY>
@@ -164,6 +174,11 @@ class Bishop : public Piece<SizeX, SizeY> {
             }
 
             return this->filterMoves( possible_moves,  start_position );
+        }
+
+        // constructor that calls parent constructor
+        Bishop (int& id, PieceColor color): Piece<SizeX, SizeY>(id, color) {
+            
         }
 };
 
@@ -198,6 +213,11 @@ class Queen : public Piece<SizeX, SizeY> {
             
             return this->filterMoves( possible_moves, start_position );
         }
+
+        // constructor that calls parent constructor
+        Queen (int& id, PieceColor color): Piece<SizeX, SizeY>(id, color) {
+            
+        }
 };
 
 template <int SizeX, int SizeY>
@@ -219,5 +239,10 @@ class King : public Piece<SizeX, SizeY> {
             possible_moves.push_back(start_position + Position {-1, -1});
 
             return this->filterMoves( possible_moves, start_position );
+        }
+
+        // constructor that calls parent constructor
+        King (int& id, PieceColor color): Piece<SizeX, SizeY>(id, color) {
+            
         }
 };
