@@ -1,10 +1,10 @@
+#pragma once
 #include "Piece.hpp"
 #include <memory>
 
-// what a joke
-// used to create pieces with independent pointers!
+// used to create pieces with independent piece objects (done through unique ptrs)!
 // used to decouple a bit from board, may be implemented into board later
-// if I want it to be closer.
+// if I want it to be coupled.
 class PieceMaker
 {
     public:

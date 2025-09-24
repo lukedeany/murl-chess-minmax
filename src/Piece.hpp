@@ -4,12 +4,15 @@
 #include <map>
 #include <algorithm>
 
+// C++ magic to say we want a template that actually has
+// an implementation of getPossibleMoves, i.e. not pure virutal
 template <typename PieceType>
 concept ConcretePiece = requires (PieceType piece)
 {
     { piece.getPossibleMoves( Position {0,0} ) };
 };
 
+// probably redundant at this point but may use it
 enum Pieces
 {
     Empty,
@@ -58,6 +61,11 @@ class Piece {
             std::vector<Position> filtered_moves {};
 
             // Filter our given position
+            // mostly c++ syntax sugar, but loops from begining to end of possible
+            // and inserts into the back of filtered moves (back_inserter)
+            // using the lambda function copying starting_position and our values.
+            // in the end simply removes any values not within our size bounds or
+            // moves that didn't actually move the piece
             std::copy_if(possible.begin(), possible.end(), 
                     std::back_inserter(filtered_moves), 
                     [starting_position](Position pos) 
@@ -71,6 +79,8 @@ class Piece {
 
     private:
         int id {-1};
+        // piece map that will hold every piece and their id
+        // maybe move to piecemaker?
         static std::map<int, Piece> piece_map;
 
 };
