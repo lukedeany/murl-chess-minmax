@@ -4,6 +4,12 @@
 #include <map>
 #include <algorithm>
 
+template <typename PieceType>
+concept ConcretePiece = requires PieceType
+{
+    { piece.getPossibleMoves( Position {0,0} ) }
+};
+
 enum Pieces
 {
     Empty,
