@@ -9,10 +9,10 @@ class PieceMaker
 {
     public:
         template <ConcretePiece Piece>
-        std::unique_ptr<Piece> createPiece()
+        std::unique_ptr<Piece> createPiece(PieceColor color)
         {
             // Create a unique_ptr to our special piece!
-            std::unique_ptr<Piece> pointer { std::make_unique<Piece>(current_id) };
+            std::unique_ptr<Piece> pointer { std::make_unique<Piece>(current_id, color) };
             
             // Create a new id!
             current_id++;

@@ -12,22 +12,10 @@ concept ConcretePiece = requires (PieceType piece)
     { piece.getPossibleMoves( Position {0,0} ) };
 };
 
-// probably redundant at this point but may use it
-enum Pieces
+enum class PieceColor
 {
-    Empty,
-    WhitePawn,
-    WhiteKnight,
-    WhiteBishop,
-    WhiteRook,
-    WhiteQueen,
-    WhiteKing,
-    BlackPawn,
-    BlackKnight,
-    BlackBishop,
-    BlackRook,
-    BlackQueen,
-    BlackKing
+    PieceColorBlack,
+    PieceColorWhite,
 };
 
 // Takes a board and returns
@@ -36,9 +24,10 @@ class Piece {
     public:
         virtual std::vector<Position> getPossibleMoves(Position start_position) = 0;
 
-        Piece(int &id)
+        Piece(int &id, PieceColor color)
         {
             this->id = id;
+            this->color = color;
         }
 
         ~Piece() 
@@ -78,6 +67,8 @@ class Piece {
         }
 
     private:
+        PieceColor color;
+
         int id {-1};
         // piece map that will hold every piece and their id
         // maybe move to piecemaker?
@@ -104,7 +95,8 @@ class Pawn : public Piece<SizeX, SizeY> {
             return this->filterMoves(possible_moves, start_position);
         }
 
-        Pawn (int& id): Piece<SizeX, SizeY>(id) {
+        // constructor that calls parent constructor
+        Pawn (int& id, PieceColor color): Piece<SizeX, SizeY>(id, color) {
             
         }
 };
