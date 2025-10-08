@@ -75,6 +75,7 @@ int main()
     
     
     std::cout << board.getPieceAtPosition(Position{3,2}) << std::endl;
+    std::cout << board.canColorMoveToPosition(Position {1,3}, PieceColor::PieceColorWhite ) << std::endl;
 
     return 0;
 }

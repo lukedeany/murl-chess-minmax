@@ -35,6 +35,37 @@ class Chessboard
             this->movePiece(start_location, end_location);
         }
 
+        // Takes in a position and a color, returns true if the color at the given position is opposite
+        // of the color given to the function, or if the space is empty!
+        bool canColorMoveToPosition(Position position, PieceColor color)
+        {
+            // First we check the id at the position
+            int piece_id = getPieceAtPosition(position);
+
+            // If space is empty, we can move there!
+            if (!piece_id)
+            {
+                return true;
+            }
+
+            // Now attempt to load in the piece from the id
+            if ( std::unique_ptr<Piece<SizeX, SizeY>> located_piece { std::move(id_map.at(piece_id)) } )
+            {
+                // Piece exists, now extract color
+                PieceColor found_color { located_piece.get()->getColor() };
+
+                // also return our piece back
+                id_map[piece_id] = std::move(located_piece) ;
+
+                // Now return if the color is not the same as our passed color
+                return found_color != color;
+            }
+
+            // We failed to load in anything, meaning an unregistered piece exists on the board
+            // this is undefined behavior but return true for fun
+            return true;
+        }
+
         // Takes in a piece ID and returns a position
         Position getPiecePosition(int piece_id)
         {
