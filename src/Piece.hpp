@@ -40,6 +40,11 @@ class Piece {
             return id;
         }
 
+        PieceColor getColor()
+        {
+            return color;
+        }
+
         static Piece* getPieceFromId(int id);
 
     protected:
