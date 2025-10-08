@@ -1,6 +1,8 @@
 #include <array>
 #include <unordered_map>
+#include <memory>
 #include "Position.hpp"
+#include "Piece.hpp"
 
 template <int SizeX, int SizeY>
 class Chessboard
@@ -53,6 +55,21 @@ class Chessboard
             board[location] = piece_id;
         }
 
+        // Register pieces with our id_map
+        // Takes in a unique pointer to a piece, which means we will take ownership of it.
+        // also takes in the initial position to spawn it at
+        void registerPiece( std::unique_ptr<Piece<SizeX, SizeY>> piece, Position position)
+        {
+            // get our ID then set our piece in our ID map
+            int id { piece.get()->getID() };
+            
+            // Also set our initial position
+            setPieceAtPosition(position, id);
+
+            // Also add our value to our map, making sure to move it once more
+            id_map[id] = std::move(piece);
+        }
+
         // Set a piece based on a position
         void setPieceAtPosition(Position position, int piece_id)
         {
@@ -99,6 +116,9 @@ class Chessboard
         // Integer is an ID for every piece
         std::array<int, SizeX * SizeY> board{};
 
+        // A hashmap that holds the ID as a key and the actual Piece class as the value
+        std::unordered_map<int, std::unique_ptr<Piece<SizeX, SizeY>>> id_map{};
+            
         // A hashmap that alternatively holds every piece, so we can lookup positions from just the piece
         // Key is the ID of the piece, the value is the integer position of the piece
         std::unordered_map<int, int> piece_map{};

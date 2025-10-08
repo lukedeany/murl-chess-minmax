@@ -15,8 +15,8 @@ int main()
         std::unique_ptr<Pawn<8,8>> black_piece { factory.createPiece<Pawn<8,8>>(PieceColor::PieceColorBlack) };
         std::unique_ptr<Pawn<8,8>> white_piece { factory.createPiece<Pawn<8,8>>(PieceColor::PieceColorWhite) };
 
-        board.setPieceAtPosition( Position {i, 2}, white_piece.get()->getID());
-        board.setPieceAtPosition( Position {i, 7}, black_piece.get()->getID());
+        board.registerPiece( std::move(white_piece), Position {i, 2});
+        board.registerPiece( std::move(black_piece), Position {i, 7});
     }
 
     for (int i {0}; i < 9; i++)
@@ -65,8 +65,9 @@ int main()
                 break;
         }
 
-        board.setPieceAtPosition( Position {i, 1}, white_piece.get()->getID());
-        board.setPieceAtPosition( Position {i, 8}, black_piece.get()->getID());
+        // Take in our pieces, and register the correct one after moving our value so we move ownership
+        board.registerPiece(std::move(white_piece), Position {i, 1});
+        board.registerPiece(std::move(black_piece), Position {i, 8});
     }
 
     // Now for every other piece!
