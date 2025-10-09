@@ -1,6 +1,7 @@
 #include <array>
 #include <unordered_map>
 #include <memory>
+#include <optional>
 #include "Position.hpp"
 #include "Piece.hpp"
 
@@ -78,6 +79,40 @@ class Chessboard
             return this->board[this->getLocationFromPosition(position)];
         }
         
+        // Check all valid moves! Takes in a piece ID
+        // returns either a vector of valid positions if the piece exists,
+        // otherwise returns nullopt
+        std::optional<std::vector<Position>> getAllValidMovesForPiece(int piece_id)
+        {
+            if ( std::unique_ptr<Piece<SizeX, SizeY>> piece { std::move(this->id_map[piece_id]) } )
+            {
+                // Now get our location from piece ID
+                int location { piece_map[piece_id] };
+
+                // Now turn our location into a position
+                Position pos { getPositionFromLocation(location) };
+
+                PieceColor color { piece.get()->getColor() };
+
+                // now create a holder for our positions and our filtered positions
+                std::vector<Position> positions { piece.get()->getPossibleMoves(piece.pos) };
+                std::vector<Position> filtered {};
+
+                // Now filter our positions based on whether we can match
+                std::copy_if( positions.begin(), positions.end(), std::back_inserter(filtered), [this, color](Position p) {
+                    return this->canColorMoveToPosition(p, color);
+                });
+
+                // finally also return our piece back to it's correct position
+                this->id_map[piece_id] = std::move(piece);
+
+                // and return our filtered list
+                return filtered;
+            }
+
+            return std::nullopt;
+        }
+
         // Set a piece at a specific location
         void setPieceAtLocation(int location, int piece_id)
         {
